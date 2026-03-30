@@ -1,9 +1,3 @@
-Since you want to ensure your designs are protected, I’ve added a dedicated **Legal & Copyright** section to your README. This explicitly states that while the *code* is in a public repo, the *visual assets* (images and designs) are your intellectual property and cannot be used without permission.
-
-You can copy and paste the entire block below:
-
------
-
 # Miyabi Jamal Studio — Portfolio
 
 This repository contains the source code for the **Miyabi Jamal Studio** official portfolio website. Based in Giza, Egypt, the studio focuses on visual design that emphasizes negative space, organic textures, and quiet elegance.

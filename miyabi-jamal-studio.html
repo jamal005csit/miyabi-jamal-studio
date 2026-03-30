@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miyabi Jamal Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oatmeal: #F5F0E8;
+    --oatmeal-dark: #EDE6D8;
+    --oatmeal-mid: #D9D0C0;
+    --sage: #8A9E8C;
+    --sage-light: #B5C4B7;
+    --sage-pale: #E8EEE8;
+    --charcoal: #2E2E2A;
+    --charcoal-mid: #4A4A44;
+    --charcoal-light: #7A7A72;
+    --linen: #F0EAE0;
+    --accent-warm: #C4A882;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--oatmeal);
+    color: var(--charcoal);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196, 168, 130, 0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--sage);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    background: var(--sage-pale);
+    opacity: 0.4;
+    z-index: -1;
+  }
+
+  .hero-text {
+    padding-top: 6rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--charcoal);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--charcoal-light);
+    line-height: 1.8;
+    max-width: 34ch;
+    margin-bottom: 3rem;
+    border-left: 1px solid var(--accent-warm);
+    padding-left: 1.5rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--charcoal);
+    transition: all 0.3s ease;
+  }
+
+  .hero-cta:hover { color: var(--sage); border-color: var(--sage); gap: 1.5rem; }
+
+  .hero-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2rem;
+    padding-top: 8rem;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+
+  .hero-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9rem;
+    font-weight: 300;
+    color: var(--oatmeal-mid);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .hero-stat {
+    text-align: right;
+  }
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1.2s 0.6s ease both;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--sage), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    padding: 6rem 4rem 3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--charcoal);
+    line-height: 1.15;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--oatmeal-mid);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery {
+    padding: 0 3rem 8rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--linen);
+    border: 1px solid rgba(196, 168, 130, 0.2);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .gallery-item:hover { transform: translateY(-4px); }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-item:hover .gallery-img { transform: scale(1.04); }
+
+  .gallery-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+  }
+
+  /* Placeholder for images */
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--charcoal-light);
+    text-align: center;
+    padding: 2rem;
+    background: var(--linen);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .gallery-item:hover .gallery-placeholder { transform: scale(1.02); }
+
+  .placeholder-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--oatmeal-mid);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(46, 46, 42, 0.65);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+  }
+
+  .overlay-content { color: white; }
+
+  .overlay-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage-light);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .overlay-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .gallery-meta {
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(196, 168, 130, 0.2);
+  }
+
+  .gallery-title {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--charcoal-mid);
+    letter-spacing: 0.03em;
+  }
+
+  .gallery-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--oatmeal-mid);
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    background: var(--charcoal);
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about::before {
+    content: 'Miyabi';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 2rem;
+  }
+
+  .about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--oatmeal);
+  }
+
+  .about-heading em {
+    font-style: italic;
+    color: var(--sage-light);
+  }
+
+  .about-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent-warm);
+    margin: 3rem 0;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(245, 240, 232, 0.7);
+    margin-bottom: 2rem;
+  }
+
+  .about-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--sage-light);
+  }
+
+  .about-disciplines {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .discipline-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oatmeal-mid);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(245, 240, 232, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .discipline-tag:hover {
+    border-color: var(--sage);
+    color: var(--sage-light);
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    padding: 8rem 4rem;
+    background: var(--oatmeal);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .contact-note {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--charcoal-light);
+    line-height: 1.8;
+    max-width: 38ch;
+    margin-bottom: 3rem;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .contact-item-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  .contact-item-value {
+    font-size: 0.9rem;
+    color: var(--charcoal-mid);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-item-value:hover { color: var(--charcoal); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .form-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+  }
+
+  .form-input,
+  .form-textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--oatmeal-mid);
+    padding: 0.7rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--oatmeal-mid);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-bottom-color: var(--sage);
+  }
+
+  .form-textarea {
+    resize: none;
+    height: 100px;
+    line-height: 1.7;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    background: var(--charcoal);
+    color: var(--oatmeal);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .form-submit:hover {
+    background: var(--sage);
+    transform: translateY(-1px);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--charcoal);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--oatmeal);
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    font-size: 0.68rem;
+    color: rgba(245, 240, 232, 0.3);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--sage-light); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.3; transform: scaleY(0.7); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── MODAL ─── */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(46, 46, 42, 0.88);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-backdrop.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--oatmeal);
+    max-width: 600px;
+    width: 90%;
+    padding: 3rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .modal-backdrop.open .modal {
+    transform: translateY(0);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--charcoal-light);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .modal-close:hover { color: var(--charcoal); }
+
+  .modal-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .modal-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--charcoal-light);
+    line-height: 1.8;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 0 2rem; }
+    .hero-aside { display: none; }
+    .hero::after { display: none; }
+    .gallery { padding: 0 2rem 6rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .about { padding: 5rem 2rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .contact { padding: 5rem 2rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .section-header { padding: 4rem 2rem 2rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Miyabi Jamal</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Visual Design Studio — Giza & Beyond</p>
+    <h1 class="hero-title">Beauty<br>in the<br><em>essential.</em></h1>
+    <p class="hero-tagline">
+      From the timeless landscapes of Giza to the clean lines of functional design, I create visuals that breathe. Negative space, organic textures, quiet elegance.
+    </p>
+    <a href="#work" class="hero-cta">View selected work →</a>
+  </div>
+
+  <div class="hero-aside">
+    <span class="hero-number">12</span>
+    <div class="hero-stat">
+      <span class="hero-stat-num">∞</span>
+      <span class="hero-stat-label">Details considered</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="work">
+  <div class="section-header">
+    <span class="section-label">Selected Works</span>
+    <div class="section-line"></div>
+    <h2 class="section-title">The Collection</h2>
+  </div>
+
+  <div class="gallery">
+    <div class="gallery-grid" id="gallery-grid">
+
+      <!-- Item 1 -->
+      <div class="gallery-item fade-in" onclick="openModal('Apple Watch Series 10', 'Product Design', 'A study in precision — the Apple Watch Series 10 campaign captures the harmony between technology and the human wrist. Clean forms, purposeful type, and priced for the discerning eye.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Apple Watch Series 10.png" alt="Apple Watch" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◎</span>
+            Apple Watch Series 10
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Product Design</span>
+              <p class="overlay-title">Apple Watch Series 10</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">Apple Watch Series 10</span>
+          <span class="gallery-num">01</span>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="gallery-item fade-in" onclick="openModal('Lose Your Knack', 'Campaign Design', 'AirTag — the art of finding. Bold brushstroke energy meets minimalist wit. Ink on linen, chaos contained within clean lines.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Apple_tag.png" alt="Apple Tag" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◈</span>
+            Lose your knack for losing things.
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Campaign Design</span>
+              <p class="overlay-title">AirTag — Find It.</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">AirTag Campaign</span>
+          <span class="gallery-num">02</span>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="gallery-item fade-in" onclick="openModal('Apple TV 4K', 'Editorial Design', 'Where television meets artistry. The Apple TV 4K campaign bridges cinematic grandeur with everyday magic — brushstroke of pure contrast.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Apple TV 4K.png" alt="Apple TV 4K" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">▣</span>
+            Apple TV 4K
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Editorial Design</span>
+              <p class="overlay-title">Apple TV 4K</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">Apple TV 4K</span>
+          <span class="gallery-num">03</span>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="gallery-item fade-in" onclick="openModal('iPhone 16e', 'Product Campaign', 'Latest iPhone. Greatest price. The 16e campaign speaks in whispers — a device that lets the product breathe against pure white space.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Iphone16e.png" alt="iPhone 16e" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◻</span>
+            iPhone 16e
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Product Campaign</span>
+              <p class="overlay-title">iPhone 16e</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">iPhone 16e</span>
+          <span class="gallery-num">04</span>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="gallery-item fade-in" onclick="openModal('MacBook Air M2', 'Luxury Tech Visual', 'Power, rendered in violet and midnight. The MacBook Air M2 visual speaks to those who understand that performance and beauty are the same thing.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Macbook AIR M2.png" alt="MacBook Air M2" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">⬡</span>
+            MacBook Air M2
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Luxury Tech Visual</span>
+              <p class="overlay-title">MacBook Air M2</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">MacBook Air M2</span>
+          <span class="gallery-num">05</span>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="gallery-item fade-in" onclick="openModal('MagSafe Battery', 'Typography-Forward', 'Buy it. Now. A typographic exercise in urgency softened by restraint — grey on grey, form on form.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\MagSafe Battery.png" alt="MagSafe Battery" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">⬤</span>
+            MagSafe Battery
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Typography Design</span>
+              <p class="overlay-title">MagSafe Battery</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">MagSafe Battery</span>
+          <span class="gallery-num">06</span>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="gallery-item fade-in" onclick="openModal('AirPods 4', 'Lifestyle Design', 'You can get yours now. The AirPods 4 visual leans into softness — muted tones, floating forms, the sound of silence made visible.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\AirPods.png" alt="AirPods 4" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◯</span>
+            AirPods 4
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Lifestyle Design</span>
+              <p class="overlay-title">AirPods 4</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">AirPods 4</span>
+          <span class="gallery-num">07</span>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="gallery-item fade-in" onclick="openModal('iPad Pro 11', 'Specs Editorial', 'Every spec a story. The iPad Pro 11 editorial breaks down power into digestible clarity — dark, confident, uncompromising.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\ipad pro.png" alt="iPad Pro 11" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">▭</span>
+            iPad Pro 11
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Editorial Design</span>
+              <p class="overlay-title">iPad Pro 11</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">iPad Pro 11</span>
+          <span class="gallery-num">08</span>
+        </div>
+      </div>
+
+      <!-- Item 9 -->
+      <div class="gallery-item fade-in" onclick="openModal('AirPods Max — Graphite', 'Product Visual', 'A green moment in a silver world. The Graphite AirPods Max campaign finds the luxury in craft — features listed like poetry, not specs.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\GRAPHITE.png" alt="AirPods Max — Graphite" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◉</span>
+            AirPods — Graphite
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Product Visual</span>
+              <p class="overlay-title">AirPods Max — Graphite</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">AirPods Max Graphite</span>
+          <span class="gallery-num">09</span>
+        </div>
+      </div>
+
+      <!-- Item 10 -->
+      <div class="gallery-item fade-in" onclick="openModal('iPhone 13 Pro Max', 'Dark Campaign', 'Pro. Max. The two words say everything. Deep tones, architectural form — the device as monument.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\iphone 13 Pro.png" alt="iPhone 13 Pro Max" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◆</span>
+            iPhone 13 Pro Max
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Dark Campaign</span>
+              <p class="overlay-title">iPhone 13 Pro Max</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">iPhone 13 Pro Max</span>
+          <span class="gallery-num">10</span>
+        </div>
+      </div>
+
+      <!-- Item 11 -->
+      <div class="gallery-item fade-in" onclick="openModal('AirPods Pro', 'Monochrome Study', 'The world disappears. AirPods Pro — rendered in monochrome grace, scattered on linen like a still life by a minimalist painter.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Airpods Pro (1).png" alt="AirPods Pro" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◎</span>
+            AirPods Pro
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Monochrome Study</span>
+              <p class="overlay-title">AirPods Pro</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">AirPods Pro</span>
+          <span class="gallery-num">11</span>
+        </div>
+      </div>
+
+      <!-- Item 12 -->
+      <div class="gallery-item fade-in" onclick="openModal('AirPods Pro — White', 'Brand Visual', 'Get yours today. The purest expression — white on white, logo on silence. Apple as a philosophy, not just a product.')">
+        <div class="gallery-img-wrap">
+          <img src="C:\Users\jamal\Downloads\design_portfolio\Airpods pro.png" alt="AirPods Pro — White" class="gallery-img">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">◌</span>
+            AirPods Pro — White
+          </div>
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <span class="overlay-tag">Brand Visual</span>
+              <p class="overlay-title">AirPods Pro — White</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-meta">
+          <span class="gallery-title">AirPods Pro — White</span>
+          <span class="gallery-num">12</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-inner">
+    <div class="fade-in">
+      <p class="about-label">About the Studio</p>
+      <h2 class="about-heading">Capturing the beauty of<br><em>the simple.</em></h2>
+    </div>
+    <div class="fade-in">
+      <div class="about-divider"></div>
+      <p class="about-bio">
+        From the timeless landscapes of Giza to the clean lines of functional design, I create visuals that breathe. My work is a study in negative space, organic textures, and the quiet elegance of high-end tech.
+      </p>
+      <p class="about-bio">
+        Every design is a conversation between what is shown and what is withheld — between the product and the pause around it. I work at the intersection of restraint and intention, where less is always more.
+      </p>
+      <p class="about-tagline">Miyabi Jamal Studio — Beauty in the essential.</p>
+      <div class="about-disciplines">
+        <span class="discipline-tag">Brand Identity</span>
+        <span class="discipline-tag">Product Visuals</span>
+        <span class="discipline-tag">Campaign Design</span>
+        <span class="discipline-tag">Editorial</span>
+        <span class="discipline-tag">Typography</span>
+        <span class="discipline-tag">Art Direction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-header" style="padding-top: 0; margin-bottom: 4rem;">
+    <span class="section-label">Get in Touch</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-inner">
+    <div class="fade-in">
+      <h2 class="contact-heading">Let's create something<br><em>essential.</em></h2>
+      <p class="contact-note">
+        Open to commissions, collaborations, and conversations about design, craft, and the beauty hidden in restraint.
+      </p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-item-label">Studio</span>
+          <span class="contact-item-value">Miyabi Jamal Studio</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Location</span>
+          <span class="contact-item-value">Giza, Egypt</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Email</span>
+          <a href="mailto:hello@miyabijamali.studio" class="contact-item-value">hello@miyabijamali.studio</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <a href="#" class="contact-item-value">@miyabijamali</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="First & Last Name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Type</label>
+        <input type="text" class="form-input" placeholder="Brand Identity, Campaign, Editorial...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about your vision..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Miyabi Jamal Studio</a>
+  <span class="footer-copy">© 2025 — All rights reserved</span>
+  <ul class="footer-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="modal-label" id="modal-tag"></span>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <p class="modal-desc" id="modal-desc"></p>
+  </div>
+</div>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Modal
+  function openModal(title, tag, desc) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-tag').textContent = tag;
+    document.getElementById('modal-desc').textContent = desc;
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('modal') || e.currentTarget.tagName === 'BUTTON') {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal({ target: document.getElementById('modal') });
+  });
+
+  function handleSubmit() {
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'var(--sage)';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = 'var(--charcoal)';
+    }, 3000);
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
